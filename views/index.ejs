@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rede Social de Perguntas e Respostas</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Bem-vindo à Rede Social de Perguntas e Respostas</h1>
+  </header>
+  <main>
+    <p>Nome: <%= nome %></p>
+    <p>Linguagem favorita: <%= lang %></p>
+
+    <h2>Faça sua pergunta ou veja o que os outros estão perguntando</h2>
+    <form action="/perguntas" method="post">
+      <label for="pergunta">Sua Pergunta:</label>
+      <input type="text" id="pergunta" name="pergunta" required>
+      <button type="submit">Enviar Pergunta</button>
+    </form>
+    <section>
+      <h3>Perguntas Recentes</h3>
+      <!-- Aqui vão as perguntas recentes -->
+    </section>
+    <section>
+      <!--Estrutura de condição if else-->
+      <% if (msg == true){ %>
+        <h3>Isso é uma mensagem de erro!</h3>
+      <%}else{ %>
+        <h3>Nenhum erro encontrado!</h3>
+      <%}%>
+
+    </section>
+  </main>
+  <footer>
+    <p>© 2024 Rede Social de Perguntas e Respostas</p>
+  </footer>
+</body>
+</html>
