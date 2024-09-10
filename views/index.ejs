@@ -5,48 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rede Social de Perguntas e Respostas</title>
     <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
   </head>
   <body>
-    <header>
+    <header text-align="justify">
+      <nav><img width="60hv" src="/img/question.jpg" alt="" /></nav>
       <h1>Bem-vindo à Rede Social de Perguntas e Respostas</h1>
     </header>
     <main>
-      <p>Nome: <%= nome %></p>
-      <p>Linguagem favorita: <%= lang %></p>
+      <div class="container">
+        <p>Nome: <%= nome %></p>
+        <p>Linguagem favorita: <%= lang %></p>
 
-      <h2>Faça sua pergunta ou veja o que os outros estão perguntando</h2>
-      <form action="/perguntas" method="post">
-        <label for="pergunta">Sua Pergunta:</label>
-        <input type="text" id="pergunta" name="pergunta" required />
-        <button type="submit">Enviar Pergunta</button>
-      </form>
-      <section>
-        <h3>Perguntas Recentes</h3>
-        <!-- Aqui vão as perguntas recentes -->
-      </section>
-      <section>
-        <!--Estrutura de condição if else-->
-        <% if (msg == true){ %>
-        <h3>Isso é uma mensagem de erro!</h3>
-        <%}else{ %>
-        <h3>Nenhum erro encontrado!</h3>
-        <%}%>
-      </section>
-      <section>
-        <h3>Perguntas Recentes</h3>
-        <ul>
-          <% perguntas.forEach(function(pergunta) { %> <!--Estrutura de repeticão forEach, percorre o array perguntas e passa para a função(perguntas) permitindo a utilização das variáveis -->
-          <hr>
-          <li>
-            <h4><%= pergunta.titulo %></h4>
-            <p><%= pergunta.descricao %></p>
-          </li>
-          <% }) %>
-        </ul>
-      </section>
+        <section>
+          <h3>Perguntas Recentes</h3>
+          <a href="http://localhost:8080/perguntar"><h3>Perguntar</h3></a>
+          <!-- Aqui vão as perguntas recentes -->
+        </section>
+        <section>
+          <!--Estrutura de condição if else-->
+          <% if (msg == true){ %>
+          <h3>Isso é uma mensagem de erro!</h3>
+          <%}else{ %>
+          <h3>Nenhum erro encontrado!</h3>
+          <%}%>
+        </section>
+        <section>
+          <ul>
+            <% perguntas.forEach(function(pergunta) { %>
+            <!--Estrutura de repeticão forEach, percorre o array perguntas e passa para a função(perguntas) permitindo a utilização das variáveis -->
+            <hr />
+            <li>
+              <h4><%= pergunta.titulo %></h4>
+              <p><%= pergunta.descricao %></p>
+            </li>
+            <% }) %>
+          </ul>
+        </section>
+      </div>
     </main>
     <footer>
       <p>© 2024 Rede Social de Perguntas e Respostas</p>
     </footer>
   </body>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"
+  ></script>
+  <script src="/js/bootstrap.min.js"></script>
 </html>

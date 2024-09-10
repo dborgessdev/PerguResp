@@ -2,6 +2,7 @@ const express = require("express"); // importa o express
 const app = express(); // cria o app com express
 
 app.set("view engine", "ejs"); // seta o motor de views como ejs
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   // rota raiz//
@@ -22,6 +23,10 @@ app.get("/", (req, res) => {
     msg : exibirMsg, // passa a variável para o ejs
     perguntas: perguntas
   });
+});
+
+app.get("/perguntar", (req, res)=>{
+  res.render("perguntar");
 });
 
 // realizando requisição de parametros pelo http
