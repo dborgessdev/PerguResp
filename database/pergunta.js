@@ -1,10 +1,10 @@
-const Sequelize = require('sequelize');
-const connection = require('./database');
+const Sequelize = require('sequelize'); // importa o sequelize
+const connection = require('./database'); // importa o database
 
-const Pergunta = connection.define('perguntas', {
-    titulo: {
-        type: Sequelize.STRING,
-        allowNull: false
+const Pergunta = connection.define('perguntas', { // define o nome da tabela
+    titulo: { // define o nome da coluna
+        type: Sequelize.STRING,// define o tipo da coluna
+        allowNull: false // define se o campo pode ser nulo
     },
     
     descricao:{
@@ -13,7 +13,7 @@ const Pergunta = connection.define('perguntas', {
     }
 });
 
-Pergunta.sync({force: false}).then(() => {
+Pergunta.sync({force: false}).then(() => { // sincroniza a tabela
     console.log('Tabela criada com sucesso!');
 }).catch((erro) => {
     console.log(erro);

@@ -1,15 +1,18 @@
-// para instalar o nodemon npm install -g nodemon
-// para instalar o sequelize: npm install --save sequelize
-// para importar mysql2: npm install --save mysql2
-// importa o express, depois cria o app com express, por fim importa o body-parser (precisa ser instalado com o comando npm install body-parser --save)
+/* * para instalar o nodemon npm install -g nodemon
+* para instalar o sequelize: npm install --save sequelize
+*  para importar mysql2: npm install --save mysql2
+* importar o express, depois cria o app com express, por fim importa o 
+* body-parser (precisa ser instalado com o comando npm install body-parser --save)
+* o body-parser é responsável por receber o corpo da requisição e transformar em um objeto de varios formatos (JSON, XML, etc). */
+
 const express = require("express"); 
 const app = express(); // 
 const bodyParser = require("body-parser"); 
-const Pergunta = require("./database/pergunta");
+const Pergunta = require("./database/Pergunta");
 
-//database
+//database: importa o sequelize
 const connection = require("./database/database");
-//promise
+//promise: usado para tratar erros
 connection
   .authenticate()
   .then(() => {
@@ -27,40 +30,35 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: false})); 
 app.use(bodyParser.json()); 
 
-// declaração da rota principal junto com sua renderização
-app.get("/", (req, res) => {
-  var nome = "Davi";
-  var lang = "Python";
-  var exibirMsg = false;
-  const perguntas = [
-    { id: 1, titulo: "O que é Node.js?", descricao: "Gostaria de saber o que é e como funciona o Node.js." },
-    { id: 2, titulo: "Como usar Express com MySQL?", descricao: "Alguém pode me ajudar a conectar o Express ao MySQL?" },
-    { id: 3, titulo: "Como usar EJS com Node JS?", descricao: "Alguém pode me ajudar a conectar o EJS ao NojdeJS?" }
-  ]
+/* A seguir, definimos uma rota que responde a requisições GET enviadas para o endpoint raiz ("/"). Isso significa que, quando o usuário acessa o endereço principal do site, esta função será chamada.
 
-  //Aqui realizamos a renderização da INDEX via EJS, também "passamos" as variaveis que serão utilizadas.
-  res.render("index", {
-    nome: nome, 
-    lang: lang, 
-    msg : exibirMsg, 
-    perguntas: perguntas
+Usamos o método findAll() do Sequelize para buscar todas as entradas da tabela associada ao modelo Pergunta no banco de dados.
+
+O parâmetro {raw: true} faz com que os resultados sejam retornados como objetos JavaScript puros (sem incluir metadados do Sequelize). Isso facilita o uso desses dados em templates ou outras partes da aplicação.
+
+Como findAll() retorna uma Promise, o método .then() é usado para lidar com o resultado quando a consulta for bem-sucedida.*/
+app.get("/", (req, res) => {
+  Pergunta.findAll({raw: true}).then((perguntas) => { // seleciona todas as perguntas
+    res.render("index", {
+      perguntas: perguntas
+   });
   });
 });
 
-app.get("/perguntar", (req, res)=>{
+app.get("/perguntar", (req, res)=>{ // rota para perguntar
   res.render("perguntar");
 });
 
-app.post("/formpergunta", (req, res) => {
+app.post("/formpergunta", (req, res) => { // rota para receber a pergunta
   var titulo = req.body.pergunta;  // Alterar para titulo
-  var descricao = req.body.descricao;
+  var descricao = req.body.descricao; // Alterar para descricão
   Pergunta.create({
-    titulo: titulo,  // Alterar para titulo
+    titulo: titulo,
     descricao: descricao
-  }).then(() => {
-    res.redirect("/");
-  }).catch((erro) => {
-    console.log(erro);
+  }).then(() => { // insere a pergunta no banco
+    res.redirect("/"); // redireciona para a rota principal
+  }).catch((erro) => { // caso ocorra um erro
+    console.log(erro); // mostra o erro
   });
 });
 /*realizando requisição de parametros pelo http

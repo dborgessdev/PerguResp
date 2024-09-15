@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize'); // importa o sequelize
 
 const connection = new Sequelize('pergurespdb', 'root', 'Python__4590', {
     host: 'localhost',

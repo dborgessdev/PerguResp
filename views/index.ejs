@@ -1,39 +1,31 @@
 <%- include ('partials/header.ejs') %>
 <body>
-    <header text-align="justify">
-      <%- include ('partials/navbar.ejs') %>
-      <h1>Bem-vindo à Rede Social de Perguntas e Respostas</h1>
-    </header>
-    <main>
-      <div class="container">
-        <p>Nome: <%= nome %></p>
-        <p>Linguagem favorita: <%= lang %></p>
-        <section>
-          <h3>Perguntas Recentes</h3>
-          <a href="http://localhost:8080/perguntar"><h3>Perguntar</h3></a>
-          <!-- Aqui vão as perguntas recentes -->
-        </section>
-        <section>
-          <!--Estrutura de condição if else-->
-          <% if (msg == true){ %>
-          <h3>Isso é uma mensagem de erro!</h3>
-          <%}else{ %>
-          <h3>Nenhum erro encontrado!</h3>
-          <%}%>
-        </section>
-        <section>
-          <ul>
-            <% perguntas.forEach(function(pergunta) { %>
-            <!--Estrutura de repeticão forEach, percorre o array perguntas e passa para a função(perguntas) permitindo a utilização das variáveis -->
-            <hr />
-            <li>
-              <h4><%= pergunta.titulo %></h4>
-              <p><%= pergunta.descricao %></p>
-            </li>
-            <% }) %>
-          </ul>
-        </section>
-      </div>
-    </main>
-<%- include ('partials/footer.ejs') %>
+  <header style="text-align: justify;">
+    <%- include ('partials/navbar.ejs') %>
+    <h1>Bem-vindo à Rede Social de Perguntas e Respostas</h1>
+  </header>
+  <br>
+  <main>
+    <section class="actions">
+      <h3>Faça uma <a href="/perguntar" class="btn btn-success">pergunta</a>!!!</h3>
+      <br>
+      <h3>Veja as perguntas abaixo:</h3>
+    </section>
+    <br>
+    <div class="container">
+      <% perguntas.forEach(pergunta => { %>
+        <div class="card">
+          <div class="card-header">
+            <h4><%= pergunta.titulo %></h4>
+          </div>
+          <div class="card-body">
+            <p><%= pergunta.descricao %></p>
+            <button class="btn btn-primary">Responder</button>
+          </div>
+        </div>
+      <% }) %>  
+    </div>
+  </main>
 
+  <%- include ('partials/footer.ejs') %>
+</body>
