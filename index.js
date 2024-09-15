@@ -9,6 +9,7 @@ const express = require("express");
 const app = express(); //
 const bodyParser = require("body-parser");
 const Pergunta = require("./database/Pergunta");
+const Resposta = require("./database/Resposta");
 
 //database: importa o sequelize
 const connection = require("./database/database");
@@ -86,6 +87,10 @@ app.get("/pergunta/:id", (req, res) => {
       res.redirect("/")
     }
   });
+});
+
+app.get("/responder", (req, res)=>{
+  res.render("/responder");
 });
 
 

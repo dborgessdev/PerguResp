@@ -1,10 +1,18 @@
 <%-include('partials/header.ejs')%>
 <body>
+    <%- include ('partials/navbar.ejs')%>
     <h1>Página da Pergunta:</h1>
     <div class="container">
         <hr>
         <h2> <%= pergunta.titulo %></h2>
         <p> <%= pergunta.descricao %></p>
         <hr>
+        <form action="/formresposta" method="post" class="card-header">
+            <textarea placeholder="Escreva a sua resposta aqui." name="resposta" class="form-control"
+            required></textarea>
+            <br>
+            <button type="submit" class="btn btn-success">Enviar resposta</button>
+        </form>
+    </div>
 </body>
 </html>
