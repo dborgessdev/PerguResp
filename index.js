@@ -38,7 +38,7 @@ O parâmetro {raw: true} faz com que os resultados sejam retornados como objetos
 
 Como findAll() retorna uma Promise, o método .then() é usado para lidar com o resultado quando a consulta for bem-sucedida.*/
 app.get("/", (req, res) => {
-  Pergunta.findAll({raw: true}).then((perguntas) => { // seleciona todas as perguntas
+  Pergunta.findAll({raw: true, order: [['id', 'DESC']]}).then((perguntas) => { // seleciona todas as perguntas
     res.render("index", {
       perguntas: perguntas
    });
