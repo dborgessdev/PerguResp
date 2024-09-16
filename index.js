@@ -77,20 +77,31 @@ app.get("/pergunta/:id", (req, res) => {
   var id = req.params.id; 
   Pergunta.findOne({ // findOne: seleciona apenas uma pergunta no banco database/Pergunta.js
     where: { id : id}
-  }).then((pergunta) => { // o then: se a pergunta for selecionada com sucesso
-    if(pergunta != undefined){ 
-      res.render("pergunta",{
-        pergunta: pergunta
-      });
- 
-    }else{
-      res.redirect("/")
-    }
+  }).then(pergunta => { // o then: se a pergunta for selecionada com sucesso
+    if(pergunta != undefined){ // se a pergunta existir
+      Resposta.findAll({
+        where: {perguntaId: pergunta.id}
+      }).then(respostas => {
+        res.render("pergunta", {
+          pergunta: pergunta,
+          respostas: respostas
+        });
+      });  
+    }else{ // se a pergunta não existir
+      res.redirect("/");
+    } 
   });
 });
 
-app.get("/responder", (req, res)=>{
-  res.render("/responder");
+app.post("/responder", (req, res)=>{
+  var resposta = req.body.resposta;
+  var perguntaId = req.body.pergunta;
+  Resposta.create({
+    resposta: resposta,
+    perguntaId: perguntaId
+  }).then(()=>{
+    res.redirect("/pergunta/"+perguntaId);
+  });
 });
 
 

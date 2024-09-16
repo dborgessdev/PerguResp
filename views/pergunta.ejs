@@ -7,12 +7,26 @@
         <h2> <%= pergunta.titulo %></h2>
         <p> <%= pergunta.descricao %></p>
         <hr>
-        <form action="/formresposta" method="post" class="card-header">
+        <form action="/responder" method="POST" class="card-header">
             <textarea placeholder="Escreva a sua resposta aqui." name="resposta" class="form-control"
             required></textarea>
             <br>
             <button type="submit" class="btn btn-success">Enviar resposta</button>
+            <input
+            value="<%= pergunta.id %>"
+            type="hidden" 
+            name="pergunta"       
+            >
         </form>
+        <hr>
+        <h3>Respostas:</h3>
+        <ul>
+            <% respostas.forEach(resposta => { %>
+                <li class=""> <%= resposta.resposta %></li>
+                <br>
+                <hr>
+            <% }) %>
+        </ul>
     </div>
 </body>
 </html>
